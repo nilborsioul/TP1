@@ -49,12 +49,6 @@ jobs:
           pip install flake8
           flake8 --exclude='.venv' --extend-ignore=E501
 
-      # Runs a set of commands using the runners shell
-      - name: Pytest
-        run: |
-          pip install pytest-cov
-          python3 -m pytest --doctest-modules --ignore=main.py --cov
-
   deploy:
     needs: test
     runs-on: ubuntu-latest
