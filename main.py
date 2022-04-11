@@ -6,4 +6,4 @@ def index():
     return "<b>Hello World !</b>"
 
 
-run(host="localhost", port=8080)
+run(host="0.0.0.0", port=sys.argv[1], reloader=True)
