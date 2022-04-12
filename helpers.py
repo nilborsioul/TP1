@@ -1,2 +1,8 @@
 def hello():
-    return "<b>Hello World !</b>"
+    """
+    >>> hello()
+    "Hello World !"
+
+    """
+
+    return "Hello World !"
