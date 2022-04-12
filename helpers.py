@@ -1,7 +1,7 @@
 def hello():
     """
     >>> hello()
-    "Hello World !"
+    'Hello World !'
 
     """
 
