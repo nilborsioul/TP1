@@ -58,7 +58,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{needs.build.outputs.branch == 'main'}}
+    if: ${{needs.build.outputs.branch == 'origin/main'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
   deploy-dev:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{needs.build.outputs.branch == 'dev'}}
+    if: ${{needs.build.outputs.branch == 'origin/dev'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
