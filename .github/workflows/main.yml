@@ -55,10 +55,15 @@ jobs:
           pip install pytest-cov
           python3 -m pytest --doctest-modules --ignore=main.py --cov
 
+      - name: Echotest
+        run: |
+          echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{needs.build.outputs.branch == 'origin/main'}}
+    if: ${{needs.build.outputs.branch == '/origin/main'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -72,7 +77,7 @@ jobs:
   deploy-dev:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{needs.build.outputs.branch == 'origin/dev'}}
+    if: ${{needs.build.outputs.branch == '/origin/dev'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -82,7 +87,6 @@ jobs:
           heroku_email: "louis.nilbor@gmail.com"
           heroku_app_name: "excelia-tp1-dev"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-
 
 
   test_status_code:
