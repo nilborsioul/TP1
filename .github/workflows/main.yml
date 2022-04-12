@@ -57,7 +57,7 @@ jobs:
 
       - name: Echotest
         run: |
-          echo ${{needs.build.outputs.branch}}
+          echo ${{github.ref_name}}
 
 
   deploy:
