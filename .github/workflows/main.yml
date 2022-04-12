@@ -57,7 +57,7 @@ jobs:
 
       - name: Echotest
         run: |
-          echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+          echo ${{github.ref}}
 
 
   deploy:
