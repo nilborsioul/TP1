@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ main , dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ main , dev ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements.txt
 
   test:
-  # This workflow contains a single job called "build"
+    # This workflow contains a single job called "build"
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -59,6 +59,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
+    if: ${{github.ref_name == 'main'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -69,9 +70,23 @@ jobs:
           heroku_app_name: "excelia-tp1"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
 
+  deploy-dev:
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{github.ref_name == 'dev'}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_email: "louis.nilbor@gmail.com"
+          heroku_app_name: "excelia-tp1-dev"
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+
 
   test_status_code:
-  # This workflow contains a single job called "build"
+    # This workflow contains a single job called "build"
     needs: deploy
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
