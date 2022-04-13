@@ -56,7 +56,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Pytest
-        run:
+        run: |
           pip install pytest-cov
           python3 -m pytest --doctest-modules --ignore=main.py --cov
 
